@@ -4,7 +4,7 @@ import time
 import re
 
 placeholderstr = "Please input your command"
-user_name = "Gild"
+user_name = "Ren"
 user_image = "https://www.w3schools.com/howto/img_avatar.png"
 
 def stream_data(stream_str):
@@ -62,11 +62,10 @@ def main():
                     st_c_chat.chat_message(msg["role"]).markdown((msg["content"]))
 
     def generate_response(prompt):
-        pattern = r'\b(i(\'?m| am| feel| think i(\'?)?m)?\s*(so\s+)?(stupid|ugly|dumb|idiot|worthless|loser|useless))\b'
-        if re.search(pattern, prompt, re.IGNORECASE):
-            return "Yes, you are!"
-        else:
-            return f"You say: {prompt}."
+        return (f'The reverse of \n\n'
+                f'"{prompt}"\n\n'
+                f'is: \n\n'
+                f'"{prompt[::-1]}"\n')
         
     # Chat function section (timing included inside function)
     def chat(prompt: str):
