@@ -60,12 +60,25 @@ def main():
                         st_c_chat.chat_message(msg["role"],avatar=image_tmp).markdown((msg["content"]))
                 except:
                     st_c_chat.chat_message(msg["role"]).markdown((msg["content"]))
+    
+    def find_mentions(prompt):
+        mentions_pattern = r'@(\w+)'
+        mentions = re.findall(mentions_pattern, prompt)
+        return mentions
+
+    def find_hashtags(prompt):
+        hashtags_pattern = r'#(\w+)'
+        hashtags = re.findall(hashtags_pattern, prompt)
+        return hashtags
 
     def generate_response(prompt):
-        return (f'The reverse of \n\n'
-                f'"{prompt}"\n\n'
-                f'is: \n\n'
-                f'"{prompt[::-1]}"\n')
+        mentions = find_mentions(prompt)
+        hashtags = find_hashtags(prompt)
+        return (f'The text has mentions of: \n\n'
+                f'{mentions}\n\n'
+                f'and \n\n'
+                f'hashtags of: \n\n'
+                f'{hashtags}')
         
     # Chat function section (timing included inside function)
     def chat(prompt: str):
@@ -82,4 +95,12 @@ def main():
         chat(prompt)
 
 if __name__ == "__main__":
+
+    # Use this as the example text
+    example_text = '''
+    Very great reporting from @foxandfriends
+    on the FAKE NEWS media today.
+    Enjoy! #MAGA 🇺🇸 facebook.com/97asdq92
+    '''
+    
     main()
